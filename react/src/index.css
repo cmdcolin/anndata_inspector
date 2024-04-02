@@ -1,0 +1,73 @@
+.cls-2,
+.cls-21 {
+  fill: #efc41c;
+}
+.cls-11,
+.cls-2,
+.cls-4,
+.cls-5,
+.cls-6,
+.cls-7,
+.cls-8,
+.cls-9 {
+  stroke: #010101;
+  stroke-miterlimit: 10;
+  stroke-width: 0.5px;
+}
+.cls-3 {
+  fill: #fff;
+}
+.cls-4 {
+  fill: #f15c5a;
+}
+.cls-5 {
+  fill: #965ba5;
+}
+.cls-6 {
+  fill: #194c61;
+}
+.cls-7 {
+  fill: #ef9021;
+}
+.cls-10,
+.cls-8 {
+  fill: #3c8b53;
+}
+.cls-9 {
+  fill: #4fba6f;
+}
+.cls-11,
+.cls-25 {
+  fill: #2c96c0;
+}
+.uns-braces {
+  fill: #010101;
+}
+.uns-name {
+  fill: #231f20;
+}
+.uns-stroke {
+  stroke: white;
+  stroke-width: 2px;
+}
+.var-line {
+  fill: #2c96c0;
+}
+.obs-line {
+  fill: #efc41c;
+}
+.cls-17 {
+  fill: #4899d4;
+}
+#var-names-horizontal .var-line {
+  mask: url(#mask-var-names-horizontal);
+}
+#obs-names-horizontal .obs-line {
+  mask: url(#mask-obs-names-horizontal);
+}
+#var-names-vertical .var-line {
+  mask: url(#mask-var-names-vertical);
+}
+#obs-names-vertical .obs-line {
+  mask: url(#mask-obs-names-vertical);
+}

@@ -1,0 +1,27 @@
+{
+  "name": "multifacted-xai",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "esbuild ./src/widget.tsx --format=esm --outdir=./bundle --bundle --watch",
+    "build": "esbuild ./src/widget.tsx --format=esm --outdir=./bundle --bundle"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^7.5.0",
+    "@typescript-eslint/parser": "^7.5.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "esbuild": "0.20.2",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "prettier": "^3.2.5",
+    "typescript": "^5.0.2"
+  }
+}
