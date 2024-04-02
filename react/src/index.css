@@ -1,3 +1,10 @@
+g {
+  pointer-events: bounding-box;
+}
+g:hover {
+  outline: solid 1px #666;
+}
+
 .cls-2,
 .cls-21 {
   fill: #efc41c;
@@ -70,4 +77,12 @@
 }
 #obs-names-vertical .obs-line {
   mask: url(#mask-obs-names-vertical);
+}
+
+.tooltip {
+  pointer-events: none;
+  background-color: #ccc;
+  padding: 4px 8px;
+  max-width: 300;
+  word-wrap: break-word;
 }

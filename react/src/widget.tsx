@@ -5,8 +5,18 @@ import App from './App'
 // css
 import './index.css'
 
-export function render(view: { el: HTMLElement }) {
-  const root = createRoot(view.el)
-  root.render(<App />)
+function render({
+  el,
+  experimental,
+}: {
+  el: HTMLElement
+  experimental: {
+    invoke: (arg: string, arg2: unknown) => Promise<[arg: string]>
+  }
+}) {
+  const root = createRoot(el)
+  root.render(<App experimental={experimental} />)
   return () => root.unmount()
 }
+
+export default { render }

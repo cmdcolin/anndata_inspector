@@ -1,13 +1,15 @@
 {
-  "name": "multifacted-xai",
+  "name": "widget",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "lint": "eslint --report-unused-disable-directives --max-warnings 0 --ext .js,.ts,.jsx,.tsx .",
     "dev": "esbuild ./src/widget.tsx --format=esm --outdir=./bundle --bundle --watch",
     "build": "esbuild ./src/widget.tsx --format=esm --outdir=./bundle --bundle"
   },
   "dependencies": {
+    "@floating-ui/react": "^0.26.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -19,6 +21,9 @@
     "@vitejs/plugin-react": "^4.0.0",
     "esbuild": "0.20.2",
     "eslint": "^8.38.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "prettier": "^3.2.5",
