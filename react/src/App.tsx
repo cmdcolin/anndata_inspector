@@ -1,34 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   useClientPoint,
   useFloating,
   useInteractions,
 } from '@floating-ui/react'
 import { createPortal } from 'react-dom'
+import { observer } from 'mobx-react'
+import { StateModel } from './stateModel'
 
-function App({
-  experimental,
-}: {
-  experimental: {
-    invoke: (arg: string, arg2: unknown) => Promise<[arg: string]>
-  }
-}) {
-  const [arg, setArg] = useState('')
-  const [error, setError] = useState<unknown>()
-  const [msg, setMsg] = useState('')
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    ;(async () => {
-      try {
-        const [msg] = await experimental.invoke('_echo', arg)
-        setMsg(msg)
-      } catch (e) {
-        console.error(e)
-        setError(e)
-      }
-    })()
-  }, [experimental, arg])
+const App = observer(function App({ state }: { state: StateModel }) {
+  const [mouseover, setMouseover] = useState('')
 
   const { refs, floatingStyles, context } = useFloating({
     placement: 'right',
@@ -38,34 +19,37 @@ function App({
   const { getFloatingProps } = useInteractions([clientPoint])
 
   return (
-    <div style={{ display: 'flex' }}>
-      {arg
-        ? createPortal(
-            <div
-              className="tooltip"
-              ref={refs.setFloating}
-              style={{
-                ...floatingStyles,
-                zIndex: 100000,
-                pointerEvents: 'none',
-              }}
-              {...getFloatingProps()}
-            >
-              {arg}
-            </div>,
-            document.body,
-          )
-        : null}
-      {error ? <div style={{ color: 'red' }}>{`${error}`}</div> : null}
+    <div>
+      {state.error ? (
+        <div style={{ color: 'red' }}>{`${state.error}`}</div>
+      ) : null}
+      <br />
+      <div style={{ display: 'flex' }}>
+        {mouseover
+          ? createPortal(
+              <div
+                className="tooltip"
+                ref={refs.setFloating}
+                style={{
+                  ...floatingStyles,
+                  zIndex: 100000,
+                  pointerEvents: 'none',
+                }}
+                {...getFloatingProps()}
+              >
+                {mouseover}
+              </div>,
+              document.body,
+            )
+          : null}
 
-      <div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
           viewBox="0 0 200.43862 195.44289"
-          style={{ display: 'block' }}
-          width={500}
-          height={500}
+          width={300}
+          height={300}
+          style={{ minWidth: 300 }}
         >
           <defs>
             <mask id="mask-var-names-horizontal">
@@ -135,8 +119,9 @@ function App({
           </defs>
           <g
             id="obs"
-            onMouseOver={() => setArg('obs')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('obs')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setSimpleEntryToFetch('obs')}
           >
             <rect
               className="cls-2"
@@ -160,8 +145,9 @@ function App({
           </g>
           <g
             id="obsp"
-            onMouseOver={() => setArg('obsp')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('obsp')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setMultiLayerEntryToFetch('obsp')}
           >
             <rect
               className="cls-4"
@@ -203,8 +189,9 @@ function App({
           </g>
           <g
             id="varp"
-            onMouseOver={() => setArg('varp')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('varp')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setMultiLayerEntryToFetch('varp')}
           >
             <rect
               className="cls-5"
@@ -246,8 +233,9 @@ function App({
           </g>
           <g
             id="Varm"
-            onMouseOver={() => setArg('varm')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('varm')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setMultiLayerEntryToFetch('varm')}
           >
             <rect
               className="cls-6"
@@ -289,8 +277,9 @@ function App({
           </g>
           <g
             id="Obsm"
-            onMouseOver={() => setArg('obsm')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('obsm')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setMultiLayerEntryToFetch('obsm')}
           >
             <rect
               className="cls-7"
@@ -332,8 +321,9 @@ function App({
           </g>
           <g
             id="Layers"
-            onMouseOver={() => setArg('layers')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('layers')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setMultiLayerEntryToFetch('layers')}
           >
             <rect
               className="cls-8"
@@ -387,8 +377,9 @@ function App({
           </g>
           <g
             id="var"
-            onMouseOver={() => setArg('var')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('var')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setSimpleEntryToFetch('var')}
           >
             <rect
               className="cls-11"
@@ -412,8 +403,9 @@ function App({
           />
           <g
             id="Uns"
-            onMouseOver={() => setArg('uns')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('uns')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setSimpleEntryToFetch('uns')}
           >
             <use xlinkHref="#uns-braces-left" className="uns-stroke" />
             <use xlinkHref="#uns-braces-left" className="uns-braces" />
@@ -430,8 +422,9 @@ function App({
           </g>
           <g
             id="var-names-horizontal"
-            onMouseOver={() => setArg('varnames')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('varnames')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setSimpleEntryToFetch('varnames')}
           >
             <rect
               className="var-line"
@@ -479,8 +472,9 @@ function App({
           </g>
           <g
             id="obs-names-horizontal"
-            onMouseOver={() => setArg('obsnames')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('obsnames')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setSimpleEntryToFetch('obsnames')}
           >
             <rect
               className="obs-line"
@@ -528,8 +522,9 @@ function App({
           </g>
           <g
             id="var-names-vertical"
-            onMouseOver={() => setArg('varnames-vertical')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('varnames-vertical')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setSimpleEntryToFetch('varnames')}
           >
             <rect
               className="var-line"
@@ -579,8 +574,9 @@ function App({
           </g>
           <g
             id="obs-names-vertical"
-            onMouseOver={() => setArg('obsnames-vertical')}
-            onMouseLeave={() => setArg('')}
+            onMouseOver={() => setMouseover('obsnames-vertical')}
+            onMouseLeave={() => setMouseover('')}
+            onClick={() => state.setSimpleEntryToFetch('obsnames')}
           >
             <rect
               className="obs-line"
@@ -629,12 +625,39 @@ function App({
             </g>
           </g>
         </svg>
-      </div>
-      <div>
-        {msg ? <div dangerouslySetInnerHTML={{ __html: msg }}></div> : null}
+        <div>
+          <b>{state.simpleEntryToFetch || state.multiLayerEntryToFetch}</b>
+          {state.options ? (
+            state.options.length ? (
+              <div>
+                <label htmlFor="choices">Choices: </label>
+                <select
+                  id="choices"
+                  value={state.currentOptionsChoice}
+                  onChange={event =>
+                    state.setCurrentOptionsChoice(event.target.value)
+                  }
+                >
+                  {state.options.map(o => (
+                    <option key={o} id={o}>
+                      {o}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+              <div>No options</div>
+            )
+          ) : null}
+          <div>
+            {state.dataResult ? (
+              <div dangerouslySetInnerHTML={{ __html: state.dataResult }} />
+            ) : null}
+          </div>
+        </div>
       </div>
     </div>
   )
-}
+})
 
 export default App
