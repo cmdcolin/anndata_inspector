@@ -16,7 +16,7 @@ export function stateModelFactory(runner: Runner) {
       dataResult: '',
       multiLayerEntryToFetch: '',
       simpleEntryToFetch: '',
-      dataSummary: undefined as Record<string, string> | undefined,
+      dataSummary: undefined as Record<string, string>[] | undefined,
     }))
     .actions(self => ({
       clear() {
@@ -38,7 +38,7 @@ export function stateModelFactory(runner: Runner) {
       setDataResult(res: string) {
         self.dataResult = res
       },
-      setDataSummary(res: Record<string, string>) {
+      setDataSummary(res: Record<string, string>[]) {
         self.dataSummary = res
       },
       setMultiLayerEntryToFetch(res: string) {
@@ -70,10 +70,24 @@ export function stateModelFactory(runner: Runner) {
                   type: 'data-summary',
                   val: self.simpleEntryToFetch,
                 })
-                console.log({ ret2 })
 
-                // @ts-expect-error json
-                self.setDataSummary(ret2)
+                const obj = JSON.parse(ret2) as Record<
+                  string,
+                  Record<string, string>
+                >
+                const columns = Object.keys(obj)
+                const r1 = Object.values(obj)
+                const keys = Object.keys(r1[0])
+                const rows = [] as Record<string, string>[]
+                for (const key of keys) {
+                  const row = {} as Record<string, string>
+                  for (const col of columns) {
+                    row[col] = obj[col][key]
+                  }
+                  rows.push(row)
+                }
+
+                self.setDataSummary(rows)
               }
             } catch (e) {
               console.error('simple', e)

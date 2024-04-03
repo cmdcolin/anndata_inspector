@@ -7,6 +7,7 @@ import {
 import { createPortal } from 'react-dom'
 import { observer } from 'mobx-react'
 import { StateModel } from './stateModel'
+import GraphPanel from './GraphPanel'
 
 const App = observer(function App({ state }: { state: StateModel }) {
   const [mouseover, setMouseover] = useState('')
@@ -653,6 +654,7 @@ const App = observer(function App({ state }: { state: StateModel }) {
             {state.dataResult ? (
               <div dangerouslySetInnerHTML={{ __html: state.dataResult }} />
             ) : null}
+            <GraphPanel state={state} />
           </div>
         </div>
       </div>
