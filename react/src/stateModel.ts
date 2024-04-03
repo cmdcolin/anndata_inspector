@@ -38,7 +38,7 @@ export function stateModelFactory(runner: Runner) {
       setDataResult(res: string) {
         self.dataResult = res
       },
-      setDataSummary(res: Record<string, string>[]) {
+      setDataSummary(res?: Record<string, string>[]) {
         self.dataSummary = res
       },
       setMultiLayerEntryToFetch(res: string) {
@@ -59,6 +59,7 @@ export function stateModelFactory(runner: Runner) {
               if (self.simpleEntryToFetch) {
                 self.clear()
                 self.setOptions(undefined)
+                self.setDataSummary(undefined)
                 self.setMultiLayerEntryToFetch('')
                 const [ret] = await runner.invoke('_echo', {
                   type: 'simple',
@@ -101,6 +102,7 @@ export function stateModelFactory(runner: Runner) {
             try {
               if (self.currentOptionsChoice && self.multiLayerEntryToFetch) {
                 self.clear()
+                self.setDataSummary(undefined)
                 const [ret] = await runner.invoke('_echo', {
                   type: 'options',
                   val: self.currentOptionsChoice,
@@ -121,6 +123,7 @@ export function stateModelFactory(runner: Runner) {
               if (self.multiLayerEntryToFetch) {
                 self.clear()
                 self.setCurrentOptionsChoice('')
+                self.setDataSummary(undefined)
                 self.setOptions(undefined)
                 self.setSimpleEntryToFetch('')
                 const [ret] = await runner.invoke('_echo', {
