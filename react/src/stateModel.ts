@@ -16,7 +16,7 @@ export function stateModelFactory(runner: Runner) {
       dataResult: '',
       multiLayerEntryToFetch: '',
       simpleEntryToFetch: '',
-      dataSummary: undefined as  Record<string, string> | undefined
+      dataSummary: undefined as Record<string, string> | undefined,
     }))
     .actions(self => ({
       clear() {
@@ -50,31 +50,8 @@ export function stateModelFactory(runner: Runner) {
     }))
     .actions(self => ({
       afterCreate() {
-        //add disposer that makes a request to "data-summary" endpoint 
-          //in python, go through and get value counts etc for each column 
-          // return that data 
-        //in JS then set that data to some state variable 
-        addDisposer(
-          self,
-          autorun(async () => {
-            try {
-              if (self.simpleEntryToFetch) {
-                self.clear()
-                self.setOptions(undefined)
-                self.setMultiLayerEntryToFetch('')
-                const [ret] = await runner.invoke('_echo', {
-                  type: 'data-summary',
-                  val: self.simpleEntryToFetch, // "obs" or "vars"
-                })
-
-                self.setDataResult(ret)
-              }
-            } catch (e) {
-              console.error('simple', e)
-              self.setError(e)
-            }
-          }),
-        )
+        // add disposer that makes a request to "data-summary" endpoint in
+        // python, go through and get value counts etc for each column return
         addDisposer(
           self,
           autorun(async () => {
@@ -87,7 +64,16 @@ export function stateModelFactory(runner: Runner) {
                   type: 'simple',
                   val: self.simpleEntryToFetch,
                 })
+
                 self.setDataResult(ret)
+                const [ret2] = await runner.invoke('_echo', {
+                  type: 'data-summary',
+                  val: self.simpleEntryToFetch,
+                })
+                console.log({ ret2 })
+
+                // @ts-expect-error json
+                self.setDataSummary(ret2)
               }
             } catch (e) {
               console.error('simple', e)
