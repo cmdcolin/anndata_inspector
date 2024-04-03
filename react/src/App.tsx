@@ -45,7 +45,12 @@ const App = observer(function App({ state }: { state: StateModel }) {
             )
           : null}
 
-        <SVGRep state={state} width={400} height={400} setMouseover={setMouseover}/>
+        <SVGRep
+          state={state}
+          width={400}
+          height={400}
+          setMouseover={setMouseover}
+        />
         <div>
           <b>{state.simpleEntryToFetch || state.multiLayerEntryToFetch}</b>
           {state.options ? (
@@ -77,7 +82,7 @@ const App = observer(function App({ state }: { state: StateModel }) {
             <GraphPanel state={state} />
           </div>
         </div>
-      </SVGRep>
+      </div>
     </div>
   )
 })
